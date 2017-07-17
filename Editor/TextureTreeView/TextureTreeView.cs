@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -7,13 +7,19 @@ using UnityEngine;
 
 public class TextureTreeView : TreeView
 {
+    private const string sortedColumnIndexStateKey = "TextureTreeViewWindow_sortedColumnIndex";
+
+
     public TextureTreeView(TreeViewState state, MultiColumnHeader multiColumnHeader) : base(state, multiColumnHeader)
     {
         rowHeight = 32;
         showAlternatingRowBackgrounds = true;
         multiColumnHeader.sortingChanged += SortItems;
+        
         multiColumnHeader.ResizeToFit();
         Reload();
+        // リロードしてTreeViewItemのビルドが終わったあとにソート関連のセットアップを行う。
+        multiColumnHeader.sortedColumnIndex = SessionState.GetInt(sortedColumnIndexStateKey, -1);
     }
 
     protected override TreeViewItem BuildRoot()
@@ -73,6 +79,7 @@ public class TextureTreeView : TreeView
 
     public void SortItems(MultiColumnHeader multiColumnHeader)
     {
+        SessionState.SetInt(sortedColumnIndexStateKey,  multiColumnHeader.sortedColumnIndex);
         var index = (ColumnIndex) multiColumnHeader.sortedColumnIndex;
         var ascending = multiColumnHeader.IsSortedAscending(multiColumnHeader.sortedColumnIndex);
 
