@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
 
-public class TextureTreeViewHeader : MultiColumnHeader
+public class TextureTableHeader : MultiColumnHeader
 {
-    public TextureTreeViewHeader(MultiColumnHeaderState state) : base(state)
+    public TextureTableHeader(MultiColumnHeaderState state) : base(state)
     {
         
 //      カラムを追加する順番が、そのまま表示する順番となっている。
-//      そのため、いつでもカラムの順番を入れ替えができるように次の方法で追加している。
+//      そのため、いつでもColumnIndexの変更でカラムの順番を入れ替えができるように、次の方法で追加している。
         var columns = new List<MultiColumnHeaderState.Column>();
 
         foreach (ColumnIndex value in Enum.GetValues(typeof(ColumnIndex)))

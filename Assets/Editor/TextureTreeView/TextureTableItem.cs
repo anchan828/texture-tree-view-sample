@@ -1,10 +1,10 @@
 ﻿using UnityEditor.IMGUI.Controls;
 
-public class TextureTreeViewItem : TreeViewItem
+public class TextureTableItem : TreeViewItem
 {
     public TextureElement element { get; set; }
 
-    public TextureTreeViewItem(int id, string texturePath) : base(id)
+    public TextureTableItem(int id, string texturePath) : base(id)
     {
         element = new TextureElement(texturePath);
     }

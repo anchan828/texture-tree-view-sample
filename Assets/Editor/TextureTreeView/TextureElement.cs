@@ -15,7 +15,7 @@ public class TextureElement
     {
         var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
         var textureInfo = new FileInfo(path);
-     
+
         icon = texture;
         name = Path.GetFileNameWithoutExtension(path);
         extension = Path.GetExtension(path);

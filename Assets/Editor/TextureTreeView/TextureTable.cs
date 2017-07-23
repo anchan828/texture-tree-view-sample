@@ -15,7 +15,7 @@ public class TextureTreeView : TreeView
         rowHeight = 32;
         showAlternatingRowBackgrounds = true;
         multiColumnHeader.sortingChanged += SortItems;
-        
+
         multiColumnHeader.ResizeToFit();
         Reload();
         // リロードしてTreeViewItemのビルドが終わったあとにソート関連のセットアップを行う。
@@ -36,7 +36,7 @@ public class TextureTreeView : TreeView
         var index = 1;
         foreach (var texturePath in texturePaths)
         {
-            rootItem.AddChild(new TextureTreeViewItem(index++, texturePath));
+            rootItem.AddChild(new TextureTableItem(index++, texturePath));
         }
 
         return rootItem;
@@ -44,7 +44,7 @@ public class TextureTreeView : TreeView
 
     protected override void RowGUI(RowGUIArgs args)
     {
-        var textureTreeViewItem = (TextureTreeViewItem) args.item;
+        var textureTreeViewItem = (TextureTableItem) args.item;
 
         for (var visibleColumnIndex = 0; visibleColumnIndex < args.GetNumVisibleColumns(); visibleColumnIndex++)
         {
@@ -77,15 +77,34 @@ public class TextureTreeView : TreeView
         }
     }
 
+    protected override void DoubleClickedItem(int id)
+    {
+        var textureTableItem = (TextureTableItem) FindItem(id, rootItem);
+        EditorGUIUtility.PingObject(textureTableItem?.element.icon);
+    }
+
+    protected override bool DoesItemMatchSearch(TreeViewItem item, string search)
+    {
+        var textureTreeViewItem = (TextureTableItem) item;
+
+        if (textureTreeViewItem.element.name.Contains(search))
+        {
+            return true;
+        }
+
+        return textureTreeViewItem.element.name.Contains(search)
+               | textureTreeViewItem.element.extension.Contains(search);
+    }
+    
     public void SortItems(MultiColumnHeader multiColumnHeader)
     {
-        SessionState.SetInt(sortedColumnIndexStateKey,  multiColumnHeader.sortedColumnIndex);
+        SessionState.SetInt(sortedColumnIndexStateKey, multiColumnHeader.sortedColumnIndex);
         var index = (ColumnIndex) multiColumnHeader.sortedColumnIndex;
         var ascending = multiColumnHeader.IsSortedAscending(multiColumnHeader.sortedColumnIndex);
 
-        var items = rootItem.children.Cast<TextureTreeViewItem>();
+        var items = rootItem.children.Cast<TextureTableItem>();
 
-        IOrderedEnumerable<TextureTreeViewItem> orderedEnumerable;
+        IOrderedEnumerable<TextureTableItem> orderedEnumerable;
 
         switch (index)
         {
@@ -116,16 +135,4 @@ public class TextureTreeView : TreeView
         BuildRows(rootItem);
     }
 
-    protected override void DoubleClickedItem(int id)
-    {
-        var textureTreeViewItem = (TextureTreeViewItem) FindItem(id, rootItem);
-        EditorGUIUtility.PingObject(textureTreeViewItem?.element.icon);
-    }
-
-    protected override bool DoesItemMatchSearch(TreeViewItem item, string search)
-    {
-        var textureTreeViewItem = (TextureTreeViewItem) item;
-        return textureTreeViewItem.element.name.Contains(search)
-               | textureTreeViewItem.element.extension.Contains(search);
-    }
 }

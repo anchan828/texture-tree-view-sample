@@ -1,6 +1,6 @@
 ﻿public enum ColumnIndex
 {
-    Id = 0,
+    Id,
     Icon,
     Name,
     Extension,
