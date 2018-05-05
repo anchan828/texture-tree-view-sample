@@ -19,30 +19,15 @@ public class TextureGenerator
         {
             Generate(directoryPath, GUID.Generate().ToString(), Random.ColorHSV());
         }
-        
+
         AssetDatabase.Refresh();
     }
 
     private static void Generate(string directoryPath, string name, Color32 color)
     {
         var texture = new Texture2D(1, 1);
-        texture.SetPixels32(new[] {color});
+        texture.SetPixels32(new[] { color });
         texture.Apply();
-
-        string extension;
-        var bytes = new byte[0];
-        if (Random.value > 0.5f)
-        {
-            extension = ".jpg";
-            bytes = texture.EncodeToJPG();
-        }
-        else
-        {
-            extension = ".png";
-            bytes = texture.EncodeToPNG();
-        }
-
-
-        File.WriteAllBytes(Path.Combine(directoryPath, name + extension), bytes);
+        File.WriteAllBytes(Path.Combine(directoryPath, name + ".png"), texture.EncodeToPNG());
     }
 }
