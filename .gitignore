@@ -1,5 +1,6 @@
 Assets/Plugins
 Assets/Textures
+!Assets/Textures/0a0f053daba234f41ba34d3823bd54e6.png
 Library
 Temp
 Assembly-CSharp-Editor-firstpass.csproj
