@@ -6,7 +6,7 @@ public class TextureTableWindow : EditorWindow
 {
     private const string searchStringStateKey = "TextureTreeViewWindow_SearchString";
 
-    [MenuItem("UNIBOOK8/TextureTreeView")]
+    [MenuItem("TreeViewSample/TextureTreeView")]
     static void Open()
     {
         GetWindow<TextureTableWindow>();

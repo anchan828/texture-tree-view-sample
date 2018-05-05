@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class TextureGenerator
 {
-    [MenuItem("UNIBOOK8/Util/RandomGenerator")]
+    [MenuItem("TreeViewSample/Util/TextureGenerator")]
     public static void Run()
     {
         var directoryPath = "Assets/Textures";
