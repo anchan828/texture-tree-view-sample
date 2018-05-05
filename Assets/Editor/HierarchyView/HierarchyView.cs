@@ -10,10 +10,10 @@ public class HierarchyView : TreeView
 
     protected override TreeViewItem BuildRoot()
     {
-        // Root の depth は -1
+       　　// Root の depth は -1
         var root = new TreeViewItem { id = 0, depth = -1 };
 
-		// AddChild メソッド、または children プロパティで開閉で表示可能な子要素を追加
+　　　　　　　　　　　　　　　　// AddChild メソッド、または children プロパティで開閉で表示可能な子要素を追加
         root.AddChild(
             new TreeViewItem
             {
@@ -25,6 +25,7 @@ public class HierarchyView : TreeView
                 }
             }
         );
+	
         // 以下でも同様の実装が行うことが出来る
         // var rows = new List<TreeViewItem> {
         //     new TreeViewItem {id = 1, depth = 0, displayName = "Animals"},
